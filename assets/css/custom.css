@@ -1,0 +1,33 @@
+html, body {
+  /* padding-top: 60px; */
+  font-family: 'Roboto Mono', sans-serif;
+  background-color: rgba(60,179,113, 1);
+}
+
+
+/* Edit navbar-brand */
+.navbar-light .navbar-brand {
+  color: rgba(68, 157, 68, 1);
+}
+.navbar-light .navbar-brand:hover,
+.navbar-light .navbar-brand:focus {
+  color: rgba(68, 200, 68, 1);
+}
+
+
+.card {
+  background-color: #373a3c;
+  color : rgba(248, 248, 255, 1);
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th {
+  text-align: center;
+}
+
+.bg-active {
+  color: gold;
+}
+.bg-inactive {
+  color: white;
+}
