@@ -17,7 +17,8 @@ function connect()
 
 function login($user,$password)
 {
-
+// Verificacion de Usuario en base de datos - deshabilitado para pruebas sin base de datos.
+/*
   $conexion = new PDO('mysql:host=localhost;dbname=finances',USER,PASS);
 
   if ($conexion)
@@ -33,7 +34,31 @@ function login($user,$password)
 
     return $value;
   }
+  */
+
+// Sustituto de Funcion login Temporal
+
+if ($user == "kendryfbo" && $password == "19017070")
+
+  return true;
+
+else
+
+  return false;
+
 }
+
+function isLogged() {
+
+  if (isset($_SESSION['logged']) && ($_SESSION['logged']))
+    return true;
+
+return false;
+
+}
+
+
+
 
 function insertUser($user,$password)
 {

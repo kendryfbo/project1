@@ -3,10 +3,8 @@ session_start();
 
 require("../include/helper.php");
 
-if (!$_SESSION['logged'])
-{
+if (!isLogged())
   header ("location: ./login.php");
-}
 
 if (isset($_GET['symbol']) && !empty($_GET['symbol']))
 {

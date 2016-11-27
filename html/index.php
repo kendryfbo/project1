@@ -1,30 +1,25 @@
 <?php
 session_start();
 
-if (isset($_POST['log-in'])) {
 
-    header("location: ./login.php");
-}
+if (isset($_POST['log-in']))
+  header("location: ./login.php");
 
-if (isset($_POST['log-out'])) {
+else if (isset($_POST['log-out']))
+  header("location: logout.php");
 
-  $_SESSION['logged'] = false;
+else if (isset($_POST['register']))
+  header("location: register.php");
 
-}
-
-if (isset($_POST['register'])) {
-
-  $_SESSION['logged'] = false;
-  header("location: ./register.php");
-}
-
+else if (isset($_POST['portfolio']))
+  header("location: portfolio.php");
 
  ?>
 
 <?php require("../view/header.php"); ?>
 
 <div class="container text-xs-center">
-  <h1>INDEX PAGE</h1>
+  <h1>Welcome to CS75 Appliance</h1>
 </div>
 <div class="container text-xs-center">
   <spam>

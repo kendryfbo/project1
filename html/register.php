@@ -3,17 +3,20 @@ session_start();
 
 require("../include/helper.php");
 
-  if (isset($_POST['user']) && isset($_POST['pass1'])) {
+if (isLogged())
+  header("location: portfolio.php");
 
-    $user= $_POST['user'];
-    $password= $_POST['pass1'];
+if (isset($_POST['user']) && isset($_POST['pass1'])) {
 
-    insertUser($user,$password);
+  $user= $_POST['user'];
+  $password= $_POST['pass1'];
 
-    $_SESSION['logged'] = true;
+  insertUser($user,$password);
 
-    header ("location: ./portfolio.php");
-  }
+  $_SESSION['logged'] = true;
+
+  header ("location: ./portfolio.php");
+}
 
  ?>
 

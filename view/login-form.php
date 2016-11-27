@@ -6,7 +6,7 @@
     <h1 class="card-header bg-primary">Login</h1>
     <form class="card-block" action="../html/login.php" method="post">
 
-      <?php if (isset($_POST['error']) && $_POST['error']) : ?>
+    <?php if (isset($_POST['error']) && $_POST['error']) : ?>
 
       <div class="form-group form-inline text-xs-center">
 
@@ -15,8 +15,8 @@
           </div>
       </div>
 
-      <?php endif; ?>
-      
+    <?php endif; ?>
+
       <div class="form-group form-inline text-xs-center">
         <label for="user">UserName:</label>
         <input type="text" class="form-control" name="user" placeholder="Insert UserName">
