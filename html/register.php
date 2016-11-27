@@ -17,10 +17,7 @@ if (isset($_POST['user']) && isset($_POST['pass1'])) {
 
   header ("location: ./portfolio.php");
 }
-
- ?>
-
-
+?>
 
 <?php require("../view/header.php") ?>
 <?php require("../view/registration-form.php") ?>
