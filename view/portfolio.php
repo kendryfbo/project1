@@ -4,26 +4,57 @@
   </div>
   <div class="col-xs-12">
     <form class="form-inline text-xs-center" action="../html/portfolio.php" method="get">
-      <label style="text-transform:uppercase" for="symbol">Search Symbol
-        <input type="text" style="text-transform:uppercase" name="symbol" value="" placeholder="$GOOG">
-        <input type="submit" name="submit" value="check" class="btn btn-outline-info btn-lg bg-inverse">
-      </label>
+      <table>
+        <tbody>
+          <tr>
+            <th>
+              <label style="text-transform:uppercase" for="symbol">Search Symbol</label>
+            </th>
+            <th>
+              <input type="text" style="text-transform:uppercase" name="symbol" value="" placeholder="$GOOG">
+            </th>
+            <th>
+              <input class="btn btn-outline-info bg-inverse" type="submit" name="submit" value="check" >
+            </th>
+          </tr>
+        </tbody>
+      </table>
+
+
     </form>
       <?php if (isset($_GET['price']) && !empty($_GET['price'])) : ?>
         <form class="form-inline text-xs-center" action="index.html" method="post">
-          <label style="text-transform:uppercase"> <?= $_GET['symbol'] ?> = <strong><?= $_GET['price'] ?></strong>
-            <input type="number" name="name" placeholder="amount">
-            <input class="btn btn-outline-success bg-inverse btn-lg" type="button" name="name" value="$Buy ">
-          </label>
+          <table>
+            <tbody>
+              <tr>
+                <th>
+                  <label style="text-transform:uppercase"><?= $_GET['symbol'] ?> = <strong> $ <?= $_GET['price'] ?></strong></label>
+                </th>
+                <th>
+                  <input type="number" name="name" placeholder="amount">
+                </th>
+                <th>
+                  <input class="btn btn-outline-success bg-inverse" type="submit" name="submit" value="  $Buy  ">
+                </th>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+
         </form>
       <?php endif; ?>
   </div>
+  <!--
   <div class="col-xs-12">
     <div class="row">
       <div class="col-lg-4">
         <div class="card card-block">
             <h1 class="card-title text-xs-center display-4"><strong>FB</strong>-FaceBook</h1>
         <div class="card-block">
+
+
           <table class="table">
             <thead>
               <tr>
@@ -54,9 +85,11 @@
               </tr>
             </tbody>
           </table>
+
         </div>
         </div>
       </div>
     </div>
   </div>
+-->
 </div>
