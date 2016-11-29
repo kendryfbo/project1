@@ -28,7 +28,7 @@
             <tbody>
               <tr>
                 <th>
-                  <label style="text-transform:uppercase"><?= $_GET['symbol'] ?> = <strong> $ <?= $_GET['price'] ?></strong></label>
+                  <label style="text-transform:uppercase"><?= htmlspecialchars($_GET['symbol']) ?> = <strong> $ <?= htmlspecialchars($_GET['price']) ?></strong></label>
                 </th>
                 <th>
                   <input type="number" name="name" placeholder="amount">
