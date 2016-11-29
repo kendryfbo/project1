@@ -10,6 +10,15 @@
 
     <h1 class="card-header bg-info">Registration</h1>
     <form name="registration" class="card-block right" action="../html/register.php" method="post">
+    <?php if (isset($_POST['error']) && $_POST['error'][0]) : ?>
+
+      <div class="form-group form-inline text-xs-center">
+          <div class="alert alert-danger">
+            <strong>Invalid:</strong> <?= $_POST['error'][1] ?>
+          </div>
+        </div>
+
+    <?php endif; ?>
       <div class="form-group form-inline text-xs-center">
         <label for="user">UserName:</label>
         <input type="text" class="form-control" name="user" placeholder="Insert UserName">

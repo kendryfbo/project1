@@ -6,16 +6,21 @@ require("../include/helper.php");
 if (isLogged())
   header("location: portfolio.php");
 
-if (isset($_POST['user']) && isset($_POST['pass1'])) {
+if (isset($_POST['register'])) {
 
-  $user= $_POST['user'];
-  $password= $_POST['pass1'];
+  if (validarRegistro($_POST['user'],$_POST['pass1'],$_POST['pass2'])) {
 
-  insertUser($user,$password);
+    $user= $_POST['user'];
+    $password= $_POST['pass1'];
+    
+    insertUser($user,$password);
 
-  $_SESSION['logged'] = true;
+    if (login($user,$password)) {
 
-  header ("location: ./portfolio.php");
+      header("location: ./portfolio.php");
+
+    }
+  }
 }
 ?>
 

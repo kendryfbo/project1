@@ -11,8 +11,6 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
   $pass= $_POST['pass'];
 
   if (login($user,$pass)) {
-
-    $_SESSION['logged'] = true;
     header("location: ./portfolio.php");
 
   } else {
