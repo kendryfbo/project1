@@ -1,7 +1,7 @@
 <?php
 
 define ("HOST",'127.0.0.1');
-define ("DB",'finance');
+define ("DB",'finances');
 define ("USER",'root');
 define ("PASS",'19017070');
 
@@ -14,11 +14,8 @@ function connect()
 
 
 /* Check user and password */
-
 function login($user,$password)
 {
-// Verificacion de Usuario en base de datos - deshabilitado para pruebas sin base de datos.
-/*
   $conexion = new PDO('mysql:host=localhost;dbname=finances',USER,PASS);
 
   if ($conexion)
@@ -34,18 +31,6 @@ function login($user,$password)
 
     return $value;
   }
-  */
-
-// Sustituto de Funcion login Temporal
-
-if ($user == "kendryfbo" && $password == "19017070")
-
-  return true;
-
-else
-
-  return false;
-
 }
 
 function isLogged() {
@@ -57,23 +42,36 @@ return false;
 
 }
 
+/* registrar Nuevo Usuario */
+function insertUser($user,$password) {
 
-
-
-function insertUser($user,$password)
-{
+  $balance = 10000;
   $conexion = new PDO('mysql:host=localhost;dbname=finances',USER,PASS);
   if ($conexion){
-    $sentencia = $conexion->prepare("INSERT INTO users (user,password) VALUES (:user,:password)");
+    $sentencia = $conexion->prepare("INSERT INTO users (user,password,balance) VALUES (:user,:password,:balance)");
     $sentencia->bindParam(':user', $user);
     $sentencia->bindParam(':password', $password);
+    $sentencia->bindParam(':balance', $balance);
     $sentencia->execute();
   }
 }
 
 
-/* Get Stack Price */
+function getUserData($id) {
 
+  $conexion = new PDO('mysql:host=localhost;dbname=finances',USER,PASS);
+  if ($conexion){
+    $sentencia = $conexion->prepare("SELECT user,balance FROM users WHERE id=:id");
+    $sentencia->bindParam(':id', $id);
+    $sentencia->execute();
+    $value= [$sentencia->fetchColumn(0)];
+
+    return $value;
+  }
+}
+
+
+/* Get Stack Price */
 function stackPrice($symbol)
 {
   $s = urlencode($symbol);

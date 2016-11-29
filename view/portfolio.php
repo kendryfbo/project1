@@ -1,6 +1,6 @@
 <div class="container-fluid row ">
   <div class="col-xs-12 jumbotron">
-    <h1>this is the data</h1>
+    <h1> <pre><?php print_r(getUserData(1)) ?></pre> </h1>
   </div>
   <div class="col-xs-12">
     <form class="form-inline text-xs-center" action="../html/portfolio.php" method="get">
