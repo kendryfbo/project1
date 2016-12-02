@@ -1,95 +1,43 @@
 <div class="container-fluid row ">
-  <div class="col-xs-12 jumbotron">
-    <h1> <pre><?php print_r(getUserData(htmlspecialchars($_SESSION['userid']))) ?></pre> </h1>
+  <div class="jumbotron">
+    <h3>Usuario: <?= $_SESSION['data'][0]['user'] ?></h3>
+    <h3>Balance: <?= $_SESSION['data'][0]['balance'] ?></h3>
   </div>
-  <div class="col-xs-12">
-    <form class="form-inline text-xs-center" action="../html/portfolio.php" method="get">
-      <table>
-        <tbody>
-          <tr>
-            <th>
-              <label style="text-transform:uppercase" for="symbol">Search Symbol</label>
-            </th>
-            <th>
-              <input type="text" style="text-transform:uppercase" name="symbol" value="" placeholder="$GOOG">
-            </th>
-            <th>
-              <input class="btn btn-outline-info bg-inverse" type="submit" name="submit" value="check" >
-            </th>
-          </tr>
-        </tbody>
-      </table>
-
-
-    </form>
-      <?php if (isset($_GET['price']) && !empty($_GET['price'])) : ?>
-        <form class="form-inline text-xs-center" action="index.html" method="post">
-          <table>
-            <tbody>
-              <tr>
-                <th>
-                  <label style="text-transform:uppercase"><?= htmlspecialchars($_GET['symbol']) ?> = <strong> $ <?= htmlspecialchars($_GET['price']) ?></strong></label>
-                </th>
-                <th>
-                  <input type="number" name="name" placeholder="amount">
-                </th>
-                <th>
-                  <input class="btn btn-outline-success bg-inverse" type="submit" name="submit" value="  $Buy  ">
-                </th>
-              </tr>
-            </tbody>
-          </table>
-
-
-
-
-        </form>
-      <?php endif; ?>
-  </div>
-  <!--
-  <div class="col-xs-12">
+  <div class="col-xs-8">
     <div class="row">
-      <div class="col-lg-4">
-        <div class="card card-block">
-            <h1 class="card-title text-xs-center display-4"><strong>FB</strong>-FaceBook</h1>
-        <div class="card-block">
-
-
-          <table class="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>FB</th>
-                <th>amount</th>
-                <th>Buy</th>
-                <th>$</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>1</th>
-                <th>FB</th>
-                <th>20</th>
-                <th>0.78$</th>
-                <th>1.0$</th>
-                <th><button class="btn btn-outline-success type"="button" name="button">Sell</button>
-                </th>
-              </tr>
-              <tr>
-                <th>2</th>
-                <th>FB</th>
-                <th>35</th>
-                <th>11$</th>
-                <th class="text-success">11.02$</th>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
+    <?php foreach ($_SESSION['data'][1] as $value): ?>
+      <div class="col-xs-4">
+        <div class="card ">
+          <div class="card-block">
+            <h4 class="card-title"><?= $value['symbol']  ?></h4>
+            <h6 class="card-subtitle">Current Price: $<?= stackPrice($value['symbol']) ?></h6>
+            <h6>Quantity: <?= $value['quantity'] ?> stacks</h6>
+            <input class="btn btn-success" type="button" name="sell" value="sell">
+          </div>
         </div>
       </div>
+    <?php endforeach; ?>
     </div>
   </div>
--->
+  <div class="col-xs-4">
+    <div class="card">
+      <div class="card-block">
+        <form class="form-group form-inline" action="portfolio.php" method="get">
+          <input class="form-control" type="text" name="symbol" value="" placeholder="Symbol">
+          <input class="btn btn-outline-success" type="submit" name="submit" value="Search">
+        </form>
+      </div>
+      <?php if (isset($_GET['symbol'])): ?>
+      <div class="card-block">
+        <h4 class="card-title"><?= htmlspecialchars($_GET['symbol'])?> : $<?= htmlspecialchars($_GET['price'])?>
+        </h4>
+        <form class="form-group form-inline" action="#" method="post">
+          <input class="form-control" type="text" name="quantity" value="" placeholder="quantity">
+          <input class="btn btn-outline-info" type="button" name="submit" value="Buy">
+        </form>
+      </div>
+      <?php endif; ?>
+    </div>
+
+  </div>
 </div>
