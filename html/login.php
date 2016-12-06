@@ -11,8 +11,10 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
   $pass= $_POST['pass'];
 
   if (login($user,$pass)) {
-    header("location: ./portfolio.php");
 
+    $_SESSION['data'] = getUserData($_SESSION['userid']);
+    header("location: ./portfolio.php");
+    exit;
   } else {
 
     $_POST['error'] = true;

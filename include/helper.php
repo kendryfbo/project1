@@ -6,7 +6,7 @@ define ("USER",'root');
 define ("PASS",'19017070');
 define ("GIFT",10000);
 
-/* check connection to DB */ 
+/* check connection to DB */
 function connect() {
   $conexion = new PDO('mysql:host=localhost;dbname=finances',USER,PASS);
 
@@ -166,4 +166,111 @@ function validatePassword($password) {
 
 }
 
+/* Sell Stack */
+function sellStack($id,$symbol,$quantity,$price) {
+
+  $conexion = new PDO('mysql::host=localhost;dbname=finances',USER,PASS);
+
+  if ($conexion) {
+
+    $conexion->beginTransaction();
+
+    $balance = getBalance($id);
+
+    $totalSell = $quantity * $price;
+    $balance = $balance + $totalSell;
+
+    $sentencia = $conexion->prepare("UPDATE users SET balance=:balance WHERE id=:id");
+    $sentencia->bindParam('id',$id);
+    $sentencia->bindParam('balance',$balance);
+
+    if (!$sentencia->execute()) {
+      echo("ERROR AL ACTUALIZAR BALANCE");
+      $conexion->rollBack();
+      return false;
+    }
+
+    $sentencia = $conexion->prepare("DELETE FROM stacks WHERE userid=:userid AND symbol=:symbol");
+
+    $sentencia->bindParam('userid',$id);
+    $sentencia->bindParam('symbol',$symbol);
+
+    if (!$sentencia->execute()) {
+      echo("ERROR AL ELIMINAR STACKS");
+      $conexion->rollBack();
+      return false;
+    }
+
+    $conexion->commit();
+    return true;
+  }
+}
+
+/* Buy Stack */
+function buyStack($id,$symbol,$quantity,$price) {
+
+  $conexion = new PDO('mysql::host=localhost;dbname=finances',USER,PASS);
+
+  if ($conexion) {
+
+    if ($quantity <= 0) {
+      echo "cantidad debe ser mayor a 0";
+      return false;
+    }
+
+    $balance = getBalance($id);
+
+    $totalBuy = $quantity * $price;
+    $balance = $balance - $totalBuy;
+
+    if ($balance < 0) {
+      echo "COMPRANDO MAS DE LO QUE TIENE";
+      $conexion->rollBack();
+      return false;
+    }
+    
+    $conexion->beginTransaction();
+
+    $sentencia = $conexion->prepare("UPDATE users SET balance=:balance WHERE id=:id");
+    $sentencia->bindParam('id',$id);
+    $sentencia->bindParam('balance',$balance);
+
+    if (!$sentencia->execute()) {
+      echo("ERROR AL ACTUALIZAR BALANCE");
+      $conexion->rollBack();
+      return false;
+    }
+
+    $sentencia = $conexion->prepare("INSERT INTO stacks (userid,symbol,name,quantity,date)
+    VALUES (:userid,:symbol,:symbol,:quantity,CURDATE())");
+
+    $sentencia->bindParam('userid',$id);
+    $sentencia->bindParam('symbol',$symbol);
+    $sentencia->bindParam('quantity',$quantity);
+
+    if (!$sentencia->execute()) {
+      echo("ERROR AL ELIMINAR STACKS");
+      $conexion->rollBack();
+      return false;
+    }
+
+    $conexion->commit();
+    return true;
+  }
+}
+
+function getBalance($id) {
+
+  $conexion = new PDO('mysql::host=localhost;dbname=finances',USER,PASS);
+
+  if ($conexion) {
+
+    $sentencia = $conexion->prepare("SELECT balance FROM users WHERE id=:id");
+    $sentencia->bindParam('id',$id);
+    $sentencia->execute();
+    $balance = $sentencia->fetchColumn();
+    return $balance;
+  }
+  return false;
+}
  ?>
